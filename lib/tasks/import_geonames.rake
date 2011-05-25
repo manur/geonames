@@ -2,7 +2,7 @@ namespace :geonames do
   desc "Import all records from allCountries.txt to Redis"
   task :import => :environment do
     File.open('lib/tasks/allCountries.txt').each do |record|
-      cols = record.split()
+      cols = record.split("\t")
       #geonameid = cols[0]
       name = cols[1]
       puts name
