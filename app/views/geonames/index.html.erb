@@ -6,11 +6,10 @@
   </p>
 <% end %>
 
-<p>
+<p><b>
 Found <%= @records.count %> results in <%= @tstop %> seconds.
-</p>
+</b></p>
 
-<h3> Records: </h3>
 <p>
 <% @records.each do |g| %>
   <%= g.split('\t') %><br/>
