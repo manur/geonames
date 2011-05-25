@@ -1,5 +1,5 @@
 <h2> Search </h2>
-<%= form_tag root_path, :method => 'get' do %>
+<%= form_tag root_path, :method => 'get', :id => "records_search" do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
     <%= submit_tag "Search", :name => nil %>
@@ -10,24 +10,9 @@
 Found <%= @records.count %> results in <%= @tstop %> seconds.
 </p>
 
-<table class="pretty">  
-  <tr>  
-    <th>ID</th>  
-    <th>Name</th>  
-    <th>Latitude</th>  
-    <th>Longitude</th>  
-  </tr>  
-  <% for r in @records %>  
-    <tr>  
-      <%# puts r%>
-    <td><%= r[0] %></td>  
-    <td><%= r[1] %></td>  
-    <td><%= r[4] %></td>  
-    <td><%= r[5] %></td>  
-  </tr>  
-  <% end %>  
-</table>  
-
+<div id="records">
+  <%= render 'records' %>
+</div>
 
 <!--
 # 3038814	Costa de Xurius	Costa de Xurius		42.5	1.48333	T	SLP	AD		00			1316	Europe/Andorra	1993-12-23
