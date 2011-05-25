@@ -1,4 +1,4 @@
-class Geoname < ActiveRecord::Base
+class Geoname# < ActiveRecord::Base
 
   def self.search(search)
     if search

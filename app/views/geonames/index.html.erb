@@ -1,5 +1,5 @@
 <h2> Search </h2>
-<% form_tag root_path, :method => 'get' do %>
+<%= form_tag root_path, :method => 'get' do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
     <%= submit_tag "Search", :name => nil %>
@@ -7,7 +7,7 @@
 <% end %>
 
 <p>
-Search took <%= @tstop %> seconds.
+Found <%= @records.count %> results in <%= @tstop %> seconds.
 </p>
 
 <h3> Records: </h3>
