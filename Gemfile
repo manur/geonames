@@ -9,6 +9,7 @@ gem 'mysql2', '0.2.3'
 gem 'redis', '2.1.1'
 gem 'system_timer'
 gem 'redis-store', '1.0.0.beta4'
+gem 'jquery-rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'
