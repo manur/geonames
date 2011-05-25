@@ -1,5 +1,18 @@
-<li>
-<% @geonames.each do |g| %>
-  <%= g %><br/>
+<h2> Search </h2>
+<% form_tag root_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
 <% end %>
-</li>
+
+<p>
+Search took <%= @tstop %> seconds.
+</p>
+
+<h3> Records: </h3>
+<p>
+<% @records.each do |g| %>
+  <%= g.split('\t') %><br/>
+<% end %>
+</p>
