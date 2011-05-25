@@ -1,4 +1,7 @@
 Testing2::Application.routes.draw do
+
+  root :to => 'geonames#index', :via => :get
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
