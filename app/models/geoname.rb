@@ -1,10 +1,10 @@
 class Geoname# < ActiveRecord::Base
 
   def self.searchz(prefix)
-    count = 10
+    count = 50
     r = Redis.new
     results = []
-    rangelen = 10 # This is not random, try to get replies < MTU size
+    rangelen = 50 # This is not random, try to get replies < MTU size
     start = r.zrank(:compl,prefix)
     return [] if !start
     while results.length != count
@@ -38,11 +38,9 @@ class Geoname# < ActiveRecord::Base
   def self.records(keys)
     records = ["\t"*6]
     unless keys.empty?
-      idx = 0
       for key in keys
         records += $redis.smembers(key)
-        idx += 1
-        break if idx > 49
+        break if records.count > 50
       end
     end
     return records
