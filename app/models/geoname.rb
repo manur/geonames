@@ -1,5 +1,31 @@
 class Geoname# < ActiveRecord::Base
 
+  def self.searchz(prefix)
+    count = 10
+    r = Redis.new
+    results = []
+    rangelen = 10 # This is not random, try to get replies < MTU size
+    start = r.zrank(:compl,prefix)
+    return [] if !start
+    while results.length != count
+        range = r.zrange(:compl,start,start+rangelen-1)
+        start += rangelen
+        break if !range or range.length == 0
+        range.each {|entry|
+            minlen = [entry.length,prefix.length].min
+            if entry[0...minlen] != prefix[0...minlen]
+                count = results.count
+                break
+            end
+            if entry[-1..-1] == "*" and results.length != count
+                results << entry[0...-1]
+            end
+        }
+    end
+    return results
+  end
+
+
   def self.search(search)
     if search
       $redis.keys(search)
@@ -10,20 +36,16 @@ class Geoname# < ActiveRecord::Base
   end
 
   def self.records(keys)
+    records = ["\t"*6]
     unless keys.empty?
-      records = []
       idx = 0
       for key in keys
         records += $redis.smembers(key)
         idx += 1
-        if idx > 51
-          return records
-        end
+        break if idx > 49
       end
-      return records
-    else
-      return ["Zee boom bah! You must enter a search term!" + "\t"*6]
     end
+    return records
   end
 
 end

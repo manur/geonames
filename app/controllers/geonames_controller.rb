@@ -3,7 +3,7 @@ class GeonamesController < ApplicationController
   # GET /
   def index
     @tstart = Time.now
-    @keys = Geoname.search(params[:search])
+    @keys = Geoname.searchz(params[:search])
     @records = Geoname.records(@keys)
     @records.map! do |r|
       r.split("\t")

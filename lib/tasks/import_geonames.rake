@@ -1,4 +1,18 @@
 namespace :geonames do
+  desc "Import all records from allCountries.txt to Redis for autocomplete (Sorted Set method!)"
+  task :importz => :environment do
+    r = Redis.new
+    File.open('lib/tasks/allCountries.txt').each do |record|
+      n = record.split("\t")[1]
+      n.strip!
+      (1..(n.length)).each{|l|
+          prefix = n[0...l]
+          r.zadd(:compl,0,prefix)
+      }
+      r.zadd(:compl,0,n+"*")
+    end
+  end
+
   desc "Import all records from allCountries.txt to Redis"
   task :import => :environment do
     File.open('lib/tasks/allCountries.txt').each do |record|
