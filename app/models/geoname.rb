@@ -5,19 +5,24 @@ class Geoname# < ActiveRecord::Base
       $redis.keys(search)
       #$redis.smembers('*ayak').count
     else
-      ['Zee boom bah!']
+      []
     end
   end
 
   def self.records(keys)
-    if keys
+    unless keys.empty?
       records = []
+      idx = 0
       for key in keys
         records += $redis.smembers(key)
+        idx += 1
+        if idx > 51
+          return records
+        end
       end
       return records
     else
-      return ['Zee boom bah! You must enter a search term!']
+      return ["Zee boom bah! You must enter a search term!" + "\t"*6]
     end
   end
 

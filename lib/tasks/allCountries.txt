@@ -1,1 +1,1 @@
-/Users/manur/Desktop/allCountries.txt
+/home/ubuntu/Desktop/allCountries.txt

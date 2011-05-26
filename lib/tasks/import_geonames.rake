@@ -4,11 +4,9 @@ namespace :geonames do
     File.open('lib/tasks/allCountries.txt').each do |record|
       cols = record.split("\t")
       #geonameid = cols[0]
-      name = cols[1]
-      puts name
       #lat = cols[4]
       #lon = cols[5]
-      $redis.sadd(name,record)
+      $redis.sadd(cols[1],record)
     end
   end
 
